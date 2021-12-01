@@ -26,7 +26,16 @@ margin: 0px;
     width: 200px;
     border-radius: 100%;
 }
-#speed{
+#volume{
     font-size: 23px;
     margin: 15;
+}
+.play_button{
+    width: 130px;
+    font-size: 25;
+    font-weight: bold;
+}
+canvas{
+    border:5px solid white ;
+    border-radius: 20px;
 }
