@@ -7,7 +7,7 @@ rightWristY = 0;
 function preload() {
     song = loadSound("music.mp3");
 }
-
+scoreLeftWrist = 0;
 function setup() {
     canvas = createCanvas(600, 500);
     canvas.center();
@@ -17,12 +17,22 @@ function setup() {
     poseNet.on('pose', gotPoses);
 }
 
-function modelloaded() {
+function modelLoaded() {
     console.log('Posenet Is Initialised');
 }
 
 function draw() {
     image(video, 0, 0, 600, 500);
+    fill("#00FFFF");
+    stroke("#00FFFF");
+    if (scoreLeftWrist > 0.2) {
+        circle(leftWristX, leftWristY, 20);
+        InNumberleftWristY = Number(leftWristY);
+        remove_decimals = floor(InNumberleftWristY);
+        volume = remove_decimals / 500;
+        document.getElementById("volume").innerHTML = "Volume = " + volume;
+        song.setVolume(volume);
+    }
 }
 
 function play() {
@@ -34,6 +44,8 @@ function play() {
 function gotPoses() {
     if (result.length > 0) {
         console.log(results);
+        scoreLeftWrist = results[0].pose.keypoints[9].score;
+        console.log("scoreLeftWrist = " + scoreLeftWrist);
         leftWristX = results[0].pose.leftWristX.x;
         leftWristY = results[0].pose.leftWristY.y;
         console.log("leftWristX = ", +leftWristX + "leftWristY = ", +leftWristY);
